@@ -8,10 +8,15 @@ form{
     padding: 60px;
 }
 
-input, select, textarea, .radios, .checks{
-    margin-bottom: 20px;
-}
 
-.radios label, .checks label{
-    margin-right: 20px;
-}
+
+
+  .footer{
+      position:absolute;
+      bottom: 0;
+      width: 69%;
+      height: auto;
+      background-color: #222;
+      text-align: center;
+      color: wheat;
+  }
