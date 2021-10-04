@@ -16,7 +16,7 @@ class ProdutoServices {
         return axios.get(PRODUTOS_REST_API_URL + '/' + produtoId);
     }
 
-    atualizarProduto(produtoId, produto){
+    editProduto(produtoId, produto){
         return axios.put(PRODUTOS_REST_API_URL + '/' + produtoId, produto);
    }
 
