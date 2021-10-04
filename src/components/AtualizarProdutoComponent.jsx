@@ -13,7 +13,7 @@ class AtualizarProdutoComponent extends Component {
     };
     this.changeProdutoHandler = this.changeProdutoHandler.bind(this);
     this.changeQuantidadeHandler = this.changeQuantidadeHandler.bind(this);
-    this.atualizarProduto = this.atualizarProduto.bind(this);
+    this.editProduto = this.editProduto.bind(this);
   }
 
   componentDidMount() {
@@ -27,7 +27,7 @@ class AtualizarProdutoComponent extends Component {
     });
   }
 
-  atualizarProduto = (e) => {
+  editProduto = (e) => {
     e.preventDefault();
     let produto = {
       nome: this.state.nome,
@@ -35,7 +35,7 @@ class AtualizarProdutoComponent extends Component {
       valor: this.state.valor,
     };
     console.log("produto =>" + JSON.stringify(produto));
-    ProdutoServices.atualizarProduto(produto,this.state.id).then( res => {
+    ProdutoServices.editProduto(produto,this.state.id).then( res => {
       this.props.history.push('/produtos');
     });
 
@@ -102,8 +102,8 @@ class AtualizarProdutoComponent extends Component {
                   <br />
 
                   <button
-                    className=" btn btn-success"
-                    onClick={this.atualizarProduto}
+                   onClick={this.editProduto}
+                   className=" btn btn-success"
                     
                   >
                     Salvar
