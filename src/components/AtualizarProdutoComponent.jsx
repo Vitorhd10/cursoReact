@@ -1,29 +1,46 @@
 import React, { Component } from "react";
 import ProdutoServices from "../services/ProdutoServices";
 
-class CriarProdutoComponent extends Component {
+class AtualizarProdutoComponent extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
+      id: this.props.match.params.id,
       nome: "",
       quantidade: "",
       valor: "",
     };
     this.changeProdutoHandler = this.changeProdutoHandler.bind(this);
     this.changeQuantidadeHandler = this.changeQuantidadeHandler.bind(this);
-    this.saveProduto = this.saveProduto.bind(this);
+    this.atualizarProduto = this.atualizarProduto.bind(this);
   }
 
-  saveProduto = (e) => {
-      e.preventDefault();
-      let produto = {nome: this.state.nome, quantidade: this.state.quantidade, valor: this.state.valor};
-      console.log('produto =>' + JSON.stringify(produto));
-
-      ProdutoServices.criarProduto(produto).then(res =>{
-        this.props.history.push('/produtos');
+  componentDidMount() {
+    ProdutoServices.getProdutoById(this.state.id).then( (res) => {
+      let produto = res.data;
+      this.setState({
+        nome: produto.nome,
+        quantidade: produto.quantidade,
+        valor: produto.valor,
       });
+    });
   }
+
+  atualizarProduto = (e) => {
+    e.preventDefault();
+    let produto = {
+      nome: this.state.nome,
+      quantidade: this.state.quantidade,
+      valor: this.state.valor,
+    };
+    console.log("produto =>" + JSON.stringify(produto));
+    ProdutoServices.atualizarProduto(produto,this.state.id).then( res => {
+      this.props.history.push('/produtos');
+    });
+
+    
+  };
 
   changeProdutoHandler = (event) => {
     this.setState({ nome: event.target.value });
@@ -31,14 +48,14 @@ class CriarProdutoComponent extends Component {
 
   changeQuantidadeHandler = (event) => {
     this.setState({ quantidade: event.target.value });
-  }
-  
+  };
+
   changeValorHandler = (event) => {
     this.setState({ valor: event.target.value });
   };
 
-  cancel(){
-    this.props.history.push("/produtos")
+  cancel() {
+    this.props.history.push("/produtos");
   }
 
   render() {
@@ -49,7 +66,7 @@ class CriarProdutoComponent extends Component {
           <div className="row">
             <div className="card col-md-6 offset-md-3 offset-md-3">
               <br />
-              <h3 className="text-center">Adicionar Produto</h3>
+              <h3 className="text-center">Editar Produto</h3>
               <div className="card-body">
                 <form>
                   <div className="form-group">
@@ -84,8 +101,20 @@ class CriarProdutoComponent extends Component {
                   </div>
                   <br />
 
-                  <button className=" btn btn-success" onClick = {this.saveProduto}>Adicionar</button>
-                  <button className=" btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancelar</button>
+                  <button
+                    className=" btn btn-success"
+                    onClick={this.atualizarProduto}
+                    
+                  >
+                    Salvar
+                  </button>
+                  <button
+                    className=" btn btn-danger"
+                    onClick={this.cancel.bind(this)}
+                    style={{ marginLeft: "10px" }}
+                  >
+                    Cancelar
+                  </button>
                 </form>
               </div>
             </div>
@@ -96,4 +125,4 @@ class CriarProdutoComponent extends Component {
   }
 }
 
-export default CriarProdutoComponent;
+export default AtualizarProdutoComponent;

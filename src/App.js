@@ -2,8 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import CriarProdutoComponent from "./components/CriarProdutoComponent";
-import FooterComponent from "./components/FooterComponent";
-import HeaderComponent from "./components/HeaderComponent";
+import AtualizarProdutoComponent from "./components/AtualizarProdutoComponent";
 import ProdutoComponent from "./components/ProdutoComponent";
 
 function App() {
@@ -12,11 +11,11 @@ function App() {
       <Router>
         
         <div className="container">
-          <switch> 
+          <switch>
             <Route path="/" exact component = {ProdutoComponent}></Route>
-            <Route path="/produtos" component={ProdutoComponent}></Route>
-            <Route path="/add-produto" component={CriarProdutoComponent}></Route>
-            <ProdutoComponent />
+            <Route path="/produtos" component = {ProdutoComponent}></Route>
+            <Route path="/add-produto" component = {CriarProdutoComponent}></Route>
+            <Route path="/update-produto/:id" component = {AtualizarProdutoComponent}></Route>
           </switch>
         </div>
        

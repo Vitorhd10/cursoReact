@@ -8,6 +8,11 @@ class ProdutoComponent extends React.Component {
       produtos: [],
     };
     this.addProduto = this.addProduto.bind(this);
+    this.editProduto = this.editProduto.bind(this);
+  }
+
+  editProduto(id){
+       this.props.history.push(`/update-produto/${id}`);
   }
 
   componentDidMount() {
@@ -38,7 +43,7 @@ class ProdutoComponent extends React.Component {
                     <th>Produto</th>
                     <th>Quantidade</th>
                     <th>Valor</th>
-                    <th></th>
+                    <th>Ações</th>
                    </tr>
                 </thead>
                 <tbody>
@@ -48,6 +53,13 @@ class ProdutoComponent extends React.Component {
                       <td>{produto.nome}</td>
                       <td>{produto.quantidade}</td>
                       <td>{produto.valor}</td>
+                      <td>
+                      <button className="btn btn-danger" onClick="">Excluir</button>
+                      </td>
+                      <td>
+                        <button className="btn btn-secondary" onClick={() => this.editProduto(produto.id)}>Editar </button>
+                        
+                      </td>
                     </tr>
                   ))}
                 </tbody>
