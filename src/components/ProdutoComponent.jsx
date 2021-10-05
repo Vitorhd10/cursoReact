@@ -64,7 +64,7 @@ class ProdutoComponent extends React.Component {
                       <td>{produto.quantidade}</td>
                       <td>{produto.valor}</td>
                       <th>
-                        <button onClick={() => this.deleteProduto(produto.id)} className="btn btn-danger" >
+                        <button onClick={() => window.confirm(`Voce deseja excluir este item com Id ${produto.id}?` ) && this.deleteProduto(produto.id)} className="btn btn-danger" >
                           Excluir
                         </button>
                         <alert
