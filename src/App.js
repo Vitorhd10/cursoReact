@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState} from "react";
+import ReactModal from "react-modal";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import CriarProdutoComponent from "./components/CriarProdutoComponent";
@@ -6,8 +7,13 @@ import AtualizarProdutoComponent from "./components/AtualizarProdutoComponent";
 import ProdutoComponent from "./components/ProdutoComponent";
 
 function App() {
+  const[modalIsOpen, setModalIsOpen] = useState(false)
   return (
+    
     <div>
+      <div className = 'App'>
+        
+      </div>
       <Router>
         
         <div className="container">

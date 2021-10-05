@@ -26,4 +26,4 @@ class ProdutoServices {
     
 }
 
-export default new ProdutoServices();
+export default ProdutoServices;
