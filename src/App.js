@@ -2,6 +2,7 @@ import React, { useState} from "react";
 import ReactModal from "react-modal";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
+import "./Modal.css"
 import CriarProdutoComponent from "./components/CriarProdutoComponent";
 import AtualizarProdutoComponent from "./components/AtualizarProdutoComponent";
 import ProdutoComponent from "./components/ProdutoComponent";

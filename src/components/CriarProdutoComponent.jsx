@@ -10,7 +10,7 @@ class CriarProdutoComponent extends Component {
       quantidade: "",
       valor: "",
     };
-    this.changeProdutoHandler = this.changeProdutoHandler.bind(this);
+    this.changeNomeHandler = this.changeNomeHandler.bind(this);
     this.changeQuantidadeHandler = this.changeQuantidadeHandler.bind(this);
     this.saveProduto = this.saveProduto.bind(this);
   }
@@ -25,7 +25,7 @@ class CriarProdutoComponent extends Component {
       });
   }
 
-  changeProdutoHandler = (event) => {
+  changeNomeHandler = (event) => {
     this.setState({ nome: event.target.value });
   };
 
@@ -59,7 +59,7 @@ class CriarProdutoComponent extends Component {
                       name="nome"
                       className="form-control"
                       value={this.state.nome}
-                      onChange={this.changeProdutoHandler}
+                      onChange={this.changeNomeHandler}
                     />
                   </div>
                   <div className="form-group">

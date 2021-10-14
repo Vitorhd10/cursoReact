@@ -2,6 +2,8 @@ import React, { useState, Component } from "react";
 import ProdutoServices from "../services/ProdutoServices";
 import Modal from "react-modal";
 
+
+
 class ProdutoComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -23,9 +25,9 @@ class ProdutoComponent extends React.Component {
     this.changeProdutoHandler = this.changeProdutoHandler.bind(this);
     this.changeQuantidadeHandler = this.changeQuantidadeHandler.bind(this);
   }
-
+  
   componentDidMount() {
-    ProdutoServices.getProdutoById(this.state.id).then((res) => {
+    ProdutoServices.getProdutoById(this.state.id).then( (res) => {
       let produto = res.data;
       this.setState({
         nome: produto.nome,
@@ -35,6 +37,20 @@ class ProdutoComponent extends React.Component {
     });
   }
 
+  updateProduto = (e) => {
+    e.preventDefault();
+    let produto = {
+      nome: this.state.nome,
+      quantidade: this.state.quantidade,
+      valor: this.state.valor,
+    };
+    console.log("produto =>" + JSON.stringify(produto));
+    ProdutoServices.editProduto(produto, this.state.id).then(res => {
+      this.props.history.push("/produtos");
+    });
+  };
+
+  
   deleteProduto(id) {
     this.produtoService.deleteProduto(id).then((res) => {
       this.setState({
@@ -43,18 +59,6 @@ class ProdutoComponent extends React.Component {
     });
   }
 
-  editProduto = (e) => {
-    e.preventDefault();
-    let produto = {
-      nome: this.state.nome,
-      quantidade: this.state.quantidade,
-      valor: this.state.valor,
-    };
-    console.log("produto =>" + JSON.stringify(produto));
-    this.produtoService.editProduto(produto, this.state.id).then((res) => {
-      this.props.history.push("/produtos");
-    });
-  };
 
   editProduto(id) {
     this.props.history.push(`/update-produto/${id}`);
@@ -131,17 +135,43 @@ class ProdutoComponent extends React.Component {
                         </th>
                         <th>
                           <button
-                            onClick={() => this.setState({ modalIsOpen: true })}
+                            onClick={() =>  this.setState({ modalIsOpen: true }) && this.editProduto(produto.id) }
                             className="btn btn-secondary"
                           >
                             Editar
                           </button>
                         </th>
-                        <div className="card col-md-6 offset-md-3 offset-md-3">
-                          <div className="App">
+                        <div className='App'>
+                          <div className='App'>
                             <Modal
                               isOpen={this.state.modalIsOpen}
-                              className="card col-md-4 offset-md-4 offset-md-4"
+                              style={
+                                {
+                                  overlay:{
+                                    position: 'fixed',
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    backgroundColor: 'rgba(255, 255, 255, 0.75)'
+                                  },
+                                  content: {
+                                    position: 'absolute',
+                                    top: '40px',
+                                    left: '40px',
+                                    right: '40px',
+                                    bottom: '40px',
+                                    border: '1px solid #ccc',
+                                    background: '#fff',
+                                    overflow: 'auto',
+                                    WebkitOverflowScrolling: 'touch',
+                                    borderRadius: '4px',
+                                    outline: 'none',
+                                    padding: '20px'
+                                    
+                                  }
+                                }
+                              }
                             >
                               <h2 className="text-center">Editar produto</h2>
                               <form>
@@ -178,7 +208,7 @@ class ProdutoComponent extends React.Component {
                                 </div>
                                 <button
                                   className="btn btn-primary"
-                                  onClick={() => this.editProduto}
+                                  onClick={() => this.updateProduto}
                                 >
                                   Salvar
                                 </button>
@@ -191,8 +221,8 @@ class ProdutoComponent extends React.Component {
                                 >
                                   Cancelar
                                 </button>
-                              </form>
-                            </Modal>
+                                </form>
+                              </Modal>
                           </div>
                         </div>
                       </tr>
